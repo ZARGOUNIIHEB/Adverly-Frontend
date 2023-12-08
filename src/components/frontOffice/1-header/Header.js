@@ -37,7 +37,7 @@ const Header = () => {
     }, [theme]);
 
     const token = localStorage.getItem('token');
-    console.log("Token :", token);
+
     const logout = () => {
         localStorage.removeItem('token');
         navigate("/");
