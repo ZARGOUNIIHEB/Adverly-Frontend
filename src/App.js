@@ -26,7 +26,6 @@ function App() {
   //Partie getting data from DataBase
   const getAllAdverts = async () => {
     const data = await fetchAllAdverts();
-    // console.log('Data from dataBase', data.adverts);
     dispatch(setAdvert(data.adverts));
   }
   // Render Data of DataBase

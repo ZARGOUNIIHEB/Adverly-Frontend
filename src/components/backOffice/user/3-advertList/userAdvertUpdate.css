@@ -1,0 +1,130 @@
+.displayAdvetUser {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 27.5rem;
+}
+
+.submit {
+    background-color: var(--blue);
+
+    padding: 0.75rem 2rem;
+    text-align: center;
+    font-size: 1.05rem;
+    text-transform: capitalize;
+
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-top: 1.8rem;
+    border: 1px solid rgb(63 63 70);
+}
+
+.submit:hover {
+    scale: 0.97;
+}
+
+
+
+
+/* Drag and Drop Part  */
+
+.card-drag {
+    padding: 10px;
+    box-shadow: 0 0 5px #ffdfdf;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card-drag .top {
+    text-align: center;
+}
+
+.card-drag p {
+    font-weight: bold;
+    color: #0086fe;
+}
+
+.card-drag button {
+    outline: 0;
+    border: 0;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 400;
+    padding: 8px 13px;
+    width: 100%;
+    background: #0086fe;
+}
+
+.card-drag .drag-area {
+    height: 150px;
+    border-radius: 5px;
+    border: 2px dashed #0086fe;
+    color: #0086fe;
+    background: #f4f3f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    -webkit-user-select: none;
+    margin-top: 10px;
+}
+
+.card-drag .drag-area .visible {
+    font-size: 18px;
+}
+
+.card-drag .select {
+    color: #5256ad;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.card-drag .select:hover {
+    opacity: 0.6;
+}
+
+.card-drag .container-drag {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.card-drag .container-drag .image {
+    width: 75px;
+    margin-right: 5px;
+    height: 75px;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.card-drag .container-drag .image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.card-drag .container-drag .image span {
+    position: absolute;
+    top: -2px;
+    right: 9px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.card-drag input,
+.card-drag .Drag-area .on-drop,
+.card-drag .drag-area.dragover .visible {
+    display: none;
+}
+
+.delete {
+    z-index: 999;
+    color: #0086fe;
+}

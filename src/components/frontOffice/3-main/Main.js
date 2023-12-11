@@ -7,10 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 // Partie Backend
 
-
-
-
-
 const Main = () => {
 
     // Partie redux
@@ -19,7 +15,6 @@ const Main = () => {
     const [currentActive, setCurrentActive] = useState("all");
     const [arr, setArr] = useState(Adverts);
 
-    console.log("Arr :", arr);
     useEffect(() => {
         setArr(Adverts);
     }, [Adverts]);
@@ -48,7 +43,7 @@ const Main = () => {
                 <button onClick={() => { setCurrentActive("computers"); filterArray("computers"); }} className={currentActive === "computers" ? "active" : null}>computers</button>
                 <button onClick={() => { setCurrentActive("books"); filterArray("books"); }} className={currentActive === "books" ? "active" : null}>books</button>
             </section>
-            <section className="flex right-section">
+            <section className="right-section flex">
                 <AnimatePresence>
                     {arr.map((item) => {
                         return (

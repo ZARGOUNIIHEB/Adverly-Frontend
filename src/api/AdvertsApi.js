@@ -1,9 +1,6 @@
 import axios from 'axios';
 
 
-
-// http://localhost:5004/advert/allAdverts
-
 export const fetchAllAdverts = async () => {
     const { data } = await axios.get('http://localhost:5004/advert/allAdverts');
     return data;
@@ -23,5 +20,10 @@ export const deleteAdverts = async (id) => {
 
 export const getUniqueAdvert = async (id) => {
     const { data } = await axios.get(`http://localhost:5004/advert/getAdvertById/${id}`);
+    return data;
+}
+
+export const getAdvertsByUserAdvert = async (userAdvert) => {
+    const { data } = await axios.get(`http://localhost:5004/advert/getAdvertByUserAdvert/${userAdvert}`);
     return data;
 }

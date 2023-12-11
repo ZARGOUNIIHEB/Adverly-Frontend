@@ -16,11 +16,10 @@ import Footer from '../../frontOffice/5-footer/Footer';
 
 const UserZone = () => {
     const Adverts = useSelector(state => state.advertElement);
-    console.log("This is the adverts List from user Zone :", Adverts);
     // @ts-ignore
     const user = useSelector(state => state.userElement);
     const dispatch = useDispatch();
-    console.log("This is the user from user zone :", user);
+
 
     const navigate = useNavigate();
 

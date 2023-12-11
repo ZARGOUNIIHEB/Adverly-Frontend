@@ -13,7 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 
 const HeaderUser = ({ user }) => {
-    console.log("This is user from Header User :", user);
+
 
     const [theme, setTheme] = useState(localStorage.getItem("currentMode") ?? "dark");
     const [showModal, setShowModal] = useState(false);

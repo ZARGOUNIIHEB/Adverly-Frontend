@@ -24,7 +24,6 @@ import Switch from "@mui/material/Switch";
 
 const Sign = ({ setShowLoginForm }) => {
 
-
     const [checked, setChecked] = useState(true);
 
     const [name, setName] = useState('');
@@ -48,6 +47,7 @@ const Sign = ({ setShowLoginForm }) => {
             const res = await axios.post('http://localhost:5004/user/signin', values);
             console.log('reponse login', res.data.token);
             localStorage.setItem('token', res.data.token);
+
             Navigate("/user");
 
         } catch (err) {
