@@ -22,10 +22,6 @@ const isEmail = (mail) =>
 
 export default function Login({ submitLogin }) {
 
-
-
-
-
     const [showPassword, setShowPassword] = React.useState(false);
 
     //Inputs

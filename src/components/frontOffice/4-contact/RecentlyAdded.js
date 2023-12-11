@@ -34,10 +34,11 @@ const RecentlyAdded = () => {
                 {arr.map((item) => {
                     return (
                         <div key={item._id} className="card-last-adverts" >
-                            <div style={{ width: "50px", backgroundImage: `url(${item.imageAdvert})` }}>
-
-                                <img width={250} src={item.imageAdvert}></img>
-
+                            <div style={{
+                                // width: "50px",
+                                // backgroundImage: `url(${item.imageAdvert[0].path})` 
+                            }}>
+                                <img width={250} src={item.imageAdvert[0].path}></img>
                             </div>
                         </div>
                     );

@@ -1,4 +1,4 @@
-import Sign from "../6-sign/Sign";
+
 
 import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
@@ -6,21 +6,20 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 
-import './header.css';
+import './headerUser.css';
 
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 
-const Header = () => {
+const HeaderUser = ({ user }) => {
+    console.log("This is user from Header User :", user);
+
     const [theme, setTheme] = useState(localStorage.getItem("currentMode") ?? "dark");
     const [showModal, setShowModal] = useState(false);
     const [showLoginForm, setShowLoginForm] = useState(false);
 
     const navigate = useNavigate();
-    // @ts-ignore
-    const user = useSelector(state => state.userElement);
-
 
     //------------             Begin switching the mode             ------------//
 
@@ -147,25 +146,25 @@ const Header = () => {
             }
 
             {/* ========================
-               Login / Sign up
-            ===========================  */}
+           Login / Sign up
+        ===========================  */}
 
             {
                 showLoginForm && (
                     <div className="loginForm">
 
                         {/* <ul className="loginModal">
-                        <li>
-                            <button className="icon-close" onClick={() => setShowLoginForm(false)} />
-                        </li>
-                        <li><a href="">Item 1</a></li>
-                        <li><a href="">Item 2</a></li>
-                        <li><a href="">Item 3</a></li>
-                        <li><a href="">Item 4</a></li>
-                        <li><a href="">Item 5</a></li>
-                    </ul> */}
+                    <li>
+                        <button className="icon-close" onClick={() => setShowLoginForm(false)} />
+                    </li>
+                    <li><a href="">Item 1</a></li>
+                    <li><a href="">Item 2</a></li>
+                    <li><a href="">Item 3</a></li>
+                    <li><a href="">Item 4</a></li>
+                    <li><a href="">Item 5</a></li>
+                </ul> */}
 
-                        <Sign setShowLoginForm={setShowLoginForm} />
+
 
                     </div>)
             }
@@ -173,4 +172,4 @@ const Header = () => {
         </header >
     );
 }
-export default Header;
+export default HeaderUser;

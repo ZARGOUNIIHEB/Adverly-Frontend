@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from "framer-motion";
 import './main.css';
-import myProjects from './MyProjects';
 
 // Partie Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setAdvert } from '../../../redux/AdvertSlice';
+import { Link } from 'react-router-dom';
 // Partie Backend
-import { fetchAllAdverts } from '../../../api/AdvertsApi';
+
 
 
 
@@ -20,18 +19,7 @@ const Main = () => {
     const [currentActive, setCurrentActive] = useState("all");
     const [arr, setArr] = useState(Adverts);
 
-    //Partie getting data from DataBase
-    const getAllAdverts = async () => {
-        const data = await fetchAllAdverts();
-        // console.log('Data from dataBase', data.adverts);
-        dispatch(setAdvert(data.adverts));
-    }
-    // Render Data of DataBase
-    useEffect(() => {
-        getAllAdverts();
-    }, []);
-
-    // Update arr when Adverts changes
+    console.log("Arr :", arr);
     useEffect(() => {
         setArr(Adverts);
     }, [Adverts]);
@@ -72,7 +60,7 @@ const Main = () => {
 
                                 key={item._id}
                                 className="  card">
-                                <img width={266} src={item.imageAdvert} alt="" />
+                                <img width={266} src={item.imageAdvert[0].path} alt="" />
 
                                 <div style={{ width: "266px" }} className="box">
                                     <h1 className="title">{item.title}</h1>
@@ -86,14 +74,15 @@ const Main = () => {
                                             <div className="icon-link"></div>
                                             {/* <div className="icon-github"></div> */}
                                         </div>
-
-                                        <a className="link flex" href="">
+                                        <Link to={`/displayadvert/${item._id}`}>
+                                            {/* <a className="link flex" href=""> */}
                                             more
                                             <span
                                                 style={{ alignSelf: "end" }}
                                                 className="icon-arrow-right"
                                             ></span>
-                                        </a>
+                                            {/* </a> */}
+                                        </Link>
                                     </div>
                                 </div>
                             </motion.article>
@@ -101,7 +90,7 @@ const Main = () => {
                     })}
                 </AnimatePresence>
             </section>
-        </main>
+        </main >
     );
 }
 export default Main;
