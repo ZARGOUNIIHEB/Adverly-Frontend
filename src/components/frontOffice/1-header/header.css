@@ -11,7 +11,7 @@
 =========================== */
 
 header.flex {
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 0 2.4rem;
     margin-top: 1.2rem;
 }

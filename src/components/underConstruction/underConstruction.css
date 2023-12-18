@@ -1,0 +1,31 @@
+.underConstruction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(40, 40, 48, 0.91);
+    /* filter: blur(8px); */
+    backdrop-filter: blur(0.1px);
+    z-index: 15;
+}
+
+.underConstruction .under_image {
+    content: url('../../../public/images/under-construction.png');
+
+}
+
+.underConstruction .icon-close {
+    /* position: fixed; */
+    margin-top: 10px;
+    font-size: 3.5rem;
+    color: crimson;
+    transition: 0.3s;
+
+}
+
+.underConstruction .icon-close:hover {
+    font-size: 3.7rem;
+    color: var(--blue);
+    rotate: 180deg;
+}

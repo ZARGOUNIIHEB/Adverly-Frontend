@@ -4,25 +4,45 @@ import { AnimatePresence, motion } from "framer-motion";
 
 
 //-----------------Libraries Zone -------------------//
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const UserAdvertsDisplay = ({ adverts, setClickCard }) => {
+const UserAdvertsDisplay = ({ adverts, setClickCard, setHide }) => {
+
     const [refState, setRefState] = useState('');
+    const [advertLoad, setAdvertLoad] = useState([]);
+
+    console.log("Adverts from Display:", adverts);
+    useEffect(() => {
+        if (adverts.length > 0) {
+            const updatedArray = [...adverts];
+            const firstAdvert = { ...updatedArray[0] };
+            if (firstAdvert._id) {
+                firstAdvert._id = "newId";
+                updatedArray.push(firstAdvert);
+                setAdvertLoad(updatedArray);
+            }
+        }
+    }, [adverts]);
 
     const myRefs = useRef([]);
 
     const handleButtonClick = (index) => {
-        const newArray = adverts.find(item => item._id === myRefs.current[index].id);
-        console.log(newArray);
-        setClickCard(newArray);
-    };
+        console.log("index", myRefs.current[index].id);
 
+        if (myRefs.current[index].id === "newId") {
+            setHide(false);
+        } else {
+            const newArray = adverts.find(item => item._id === myRefs.current[index].id);
+            setClickCard(newArray);
+            setHide(true);
+        }
+    };
 
     return (
         <section className="userAdverts flex">
             <AnimatePresence>
-                {adverts.map((item, index) => {
+                {advertLoad.map((item, index) => {
                     return (
                         <motion.article
                             layout
@@ -30,11 +50,10 @@ const UserAdvertsDisplay = ({ adverts, setClickCard }) => {
                             animate={{ transform: "scale(1)" }}
                             transition={{ dumping: 8, type: "spring", stiffness: 50 }}
                             key={item._id}
-                            className="  card"
+                            className={(item._id === "newId") ? "cardPlus" : ((item.advertState === 'Under review') ? "card_Under_Review" : "  card")}
                             id={item._id}
                             ref={(el) => (myRefs.current[index] = el)}
-                            onClick={() => handleButtonClick(index)}
-                        >
+                            onClick={() => handleButtonClick(index)}>
                             <img width={177}
                                 src={item.imageAdvert[0].path}
                                 alt="" />

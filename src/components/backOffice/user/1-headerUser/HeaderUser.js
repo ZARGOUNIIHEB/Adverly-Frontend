@@ -1,10 +1,11 @@
 
 
 import { useState, useEffect } from 'react';
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-
+import { fetchaccount } from "../../../../api/UsersApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../../redux/UserSlice";
 
 import './headerUser.css';
 
@@ -14,6 +15,14 @@ import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 
 const HeaderUser = ({ user }) => {
 
+    // @ts-ignore
+    // const user = useSelector(state => state.userElement);
+    // const dispatch = useDispatch();
+
+
+
+    console.log("User from HeaderUser:", user);
+    console.log("Image user :", user.imageUser);
 
     const [theme, setTheme] = useState(localStorage.getItem("currentMode") ?? "dark");
     const [showModal, setShowModal] = useState(false);
@@ -45,14 +54,14 @@ const HeaderUser = ({ user }) => {
     //------------             End Token Zone             ------------//
 
     return (
-        <header className="flex">
+        <header className="headerUser flex">
             {token ? (<div className="session-form flex">
                 <div className="icon-session">
                     {user.imageUser ? (
                         <img className="img-session" src={user.imageUser} alt='Original' />
                     ) : (
 
-                        <img className="img-session" src="images/profil.jpg" alt='default' />
+                        <img className="img-session" src="/images/profil.jpg" alt='default' />
                     )}
 
                 </div>
@@ -66,19 +75,19 @@ const HeaderUser = ({ user }) => {
                     {token ? (
                         <>
                             <li>
-                                <Link to="/user">Home</Link>
+                                <Link to="/userzone">Home</Link>
                             </li>
                             <li>
-                                <Link to="/profile">Profile</Link>
+                                <Link to="/userzone/profile">Profile</Link>
                             </li>
                             <li>
                                 <a href="">Nav 3</a>
                             </li>
                             <li>
-                                <Link to="/testing">Testing</Link>
+                                <Link to="/userzone/testing">Testing</Link>
                             </li>
                             <li>
-                                <Link to="/advert">
+                                <Link to="/userzone/advert">
                                     <button className="mode flex"><NoteAddOutlinedIcon></NoteAddOutlinedIcon></button>
                                 </Link>
                             </li>

@@ -4,7 +4,9 @@ import MuiAlert from '@mui/material/Alert';
 
 
 import React, { useState } from "react";
-
+import { useNavigate } from 'react-router';
+import axios from 'axios';
+import { fetchaccount } from '../../../api/UsersApi';
 
 import {
     TextField, InputAdornment, FormControl, InputLabel, IconButton, Button, Input, Checkbox, Alert,
@@ -20,7 +22,7 @@ import LoginIcon from "@mui/icons-material/Login";
 const isEmail = (mail) =>
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(mail);
 
-export default function Login({ submitLogin }) {
+export default function Login() {
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -37,6 +39,7 @@ export default function Login({ submitLogin }) {
     const [formValid, setFormValid] = useState();
     const [success, setSuccess] = useState();
 
+    const Navigate = useNavigate();
     // Handles Display and Hide Password
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
@@ -73,6 +76,32 @@ export default function Login({ submitLogin }) {
         setPasswordError(false);
     };
 
+    const submitLogin = async (values) => {
+        console.log("provided email:", values.email);
+        console.log("provided password:", values.password);
+        try {
+            const res = await axios.post('http://localhost:5004/user/signin', values);
+            console.log('reponse login', res.data.token);
+            localStorage.setItem('token', res.data.token);
+            const data = await fetchaccount();
+            console.log("email from MongoDB", data.email);
+            console.log("Password from MongoDB :", data.password);
+            if ((values.email === data.email) && (values.password === data.password)) {
+                if ((data.role === "Admin")) {
+                    Navigate("/dashboardadmin");
+                } else {
+                    Navigate("/userzone");
+                }
+            } else {
+                Navigate("/");
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+        // setLogged(1);
+    }
+
     //handle Submittion
     const handleSubmit = () => {
         setSuccess(null);
@@ -97,9 +126,9 @@ export default function Login({ submitLogin }) {
         setFormValid(null);
 
         // Proceed to use the information passed
-        console.log("Email : " + email);
-        console.log("Password : " + password);
-        console.log("Remember : " + rememberMe);
+        //  console.log("Email : " + email);
+        // console.log("Password : " + password);
+        // console.log("Remember : " + rememberMe);
 
         //Show Successfull Submittion
         // @ts-ignore

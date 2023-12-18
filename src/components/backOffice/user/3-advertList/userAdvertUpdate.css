@@ -51,7 +51,8 @@
     cursor: pointer;
     font-weight: 400;
     padding: 8px 13px;
-    width: 100%;
+    width: 94%;
+    text-align: center;
     background: #0086fe;
 }
 

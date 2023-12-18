@@ -1,12 +1,7 @@
-import axios from 'axios';
-import { useState } from "react";
-import { useNavigate } from 'react-router';
 
+import { useState } from "react";
 
 import "./sign.css";
-
-import { postUser, fetchaccount } from '../../../api/UsersApi';
-
 
 import Login from "./Login";
 import Signup from "./Signup";
@@ -30,38 +25,9 @@ const Sign = ({ setShowLoginForm }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const Navigate = useNavigate();
-
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
-
-    const handleAdd = async (value) => {
-        console.log("add values:", value);
-        await postUser(value);
-    }
-
-    const submitLogin = async (values) => {
-        console.log(values);
-        try {
-            const res = await axios.post('http://localhost:5004/user/signin', values);
-            console.log('reponse login', res.data.token);
-            localStorage.setItem('token', res.data.token);
-
-            Navigate("/user");
-
-        } catch (err) {
-            console.log(err);
-        }
-
-
-        // setLogged(1);
-
-    }
-
-
-
-
 
     return (
         <Paper className="loginModal">
@@ -94,9 +60,10 @@ const Sign = ({ setShowLoginForm }) => {
                 />
             </div>
 
-            {checked ? <Login submitLogin={submitLogin} /> : <Signup
-                // @ts-ignore
-                handleAdd={handleAdd} />}
+            {checked ?
+                <Login />
+                :
+                <Signup />}
         </Paper>
     );
 }

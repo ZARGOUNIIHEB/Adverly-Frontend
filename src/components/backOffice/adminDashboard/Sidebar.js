@@ -1,111 +1,284 @@
-//----------------- Styling Zone --------------------//
-import logoPr from '../../../css/images/logo.png';
-//-----------------Libraries Zone -------------------//
-import React, { useState } from 'react';
-//----------------- Components Zone -----------------//
+import React from "react";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import { Avatar, styled, useTheme, Typography, Tooltip } from "@mui/material";
+import MuiDrawer from "@mui/material/Drawer";
+import { HomeOutlined } from "@mui/icons-material";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
+import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
+import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
+import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import { useLocation, useNavigate } from "react-router-dom";
+import { grey } from "@mui/material/colors";
 
+const drawerWidth = 240;
+const openedMixin = (theme) => ({
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: "hidden",
+});
 
-const Sidebar = () => {
+const closedMixin = (theme) => ({
+    transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: "hidden",
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up("sm")]: {
+        width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+});
 
-    const [nav1, setNav1] = useState('active');
-    const [nav2, setNav2] = useState('');
-    const [nav3, setNav3] = useState('');
-    const [nav4, setNav4] = useState('');
-    const [nav5, setNav5] = useState('');
-    const [nav6, setNav6] = useState('');
-    const [nav7, setNav7] = useState('');
-    const [nav8, setNav8] = useState('');
-    const [nav9, setNav9] = useState('');
+const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: (prop) => prop !== "open",
+    // @ts-ignore
+})(({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+    boxSizing: "border-box",
+    ...(open && {
+        ...openedMixin(theme),
+        "& .MuiDrawer-paper": openedMixin(theme),
+    }),
+    ...(!open && {
+        ...closedMixin(theme),
+        "& .MuiDrawer-paper": closedMixin(theme),
+    }),
+}));
 
+const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+}));
 
-    const backToInactive = () => {
-        setNav1('');
-        setNav2('');
-        setNav3('');
-        setNav4('');
-        setNav5('');
-        setNav6('');
-        setNav7('');
-        setNav8('');
-        setNav9('');
-    }
+const Array1 = [
+    { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/dashboardadmin" },
+    { text: "Manage Users", icon: <PeopleOutlinedIcon />, path: "/dashboardadmin/users" },
+    {
+        text: "Contacts Information",
+        icon: <ContactsOutlinedIcon />,
+        path: "/dashboardadmin/contacts",
+    },
+    {
+        text: "Adverts",
+        icon: <ReceiptOutlinedIcon />,
+        path: "/dashboardadmin/adverts",
+    },
+];
+
+const Array2 = [
+    { text: "Profile Form", icon: <PersonOutlinedIcon />, path: "/dashboardadmin/form" },
+    { text: "Calendar", icon: <CalendarTodayOutlinedIcon />, path: "/dashboardadmin/calendar" },
+    {
+        text: "FAQ Page",
+        icon: <HelpOutlineOutlinedIcon />,
+        path: "/dashboardadmin/faq",
+    },
+];
+
+const Array3 = [
+    { text: "Bar Chart", icon: <BarChartOutlinedIcon />, path: "/dashboardadmin/bar" },
+    { text: "Pie Chart", icon: <PieChartOutlineOutlinedIcon />, path: "/dashboardadmin/pie" },
+    { text: "Line Chart", icon: <TimelineOutlinedIcon />, path: "/dashboardadmin/line" },
+    { text: "Geography Chart", icon: <MapOutlinedIcon />, path: "/dashboardadmin/geography" },
+];
+
+const SideBar = ({ open, handleDrawerClose, user }) => {
+    let location = useLocation();
+    const navigate = useNavigate();
+    const theme = useTheme();
     return (
-        <aside className='dash_aside' id="aside">
-            <div className="dash_toggle">
-                <div className="dash_logo">
-                    <img src={logoPr} />
-                    <h2>Asmr<span className="danger">Prog</span></h2>
-                </div>
-                <div className="close" id="close-btn">
-                    <span className="material-icons-sharp">
-                        close
-                    </span>
-                </div>
-            </div>
-            <div className="dash_sidebar">
-                <a className={nav1} onClick={() => { backToInactive(); setNav1("active") }}>
-                    <span className="material-icons-sharp">
-                        dashboard
-                    </span>
-                    <h3>Dashboard</h3>
-                </a>
-                <a className={nav2} onClick={() => { backToInactive(); setNav2("active") }}>
-                    <span className="material-icons-sharp">
-                        person_outline
-                    </span>
-                    <h3>Users</h3>
-                </a>
-                <a className={nav3} onClick={() => { backToInactive(); setNav3("active") }}>
-                    <span className="material-icons-sharp">
-                        receipt_long
-                    </span>
-                    <h3>History</h3>
-                </a>
-                <a className={nav4} onClick={() => { backToInactive(); setNav4("active") }}>
-                    <span className="material-icons-sharp">
-                        insights
-                    </span>
-                    <h3>Analytics</h3>
-                </a>
-                <a className={nav5} onClick={() => { backToInactive(); setNav5("active") }}>
-                    <span className="material-icons-sharp">
-                        mail_outline
-                    </span>
-                    <h3>Tickets</h3>
-                    <span className="message-count">27</span>
-                </a>
-                <a className={nav6} onClick={() => { backToInactive(); setNav6("active") }}>
-                    <span className="material-icons-sharp">
-                        inventory
-                    </span>
-                    <h3>Sale List</h3>
-                </a>
-                <a className={nav7} onClick={() => { backToInactive(); setNav7("active") }}>
-                    <span className="material-icons-sharp">
-                        report_gmailerrorred
-                    </span>
-                    <h3>Reports</h3>
-                </a>
-                <a className={nav8} onClick={() => { backToInactive(); setNav8("active") }}>
-                    <span className="material-icons-sharp">
-                        settings
-                    </span>
-                    <h3>Settings</h3>
-                </a>
-                <a className={nav9} onClick={() => { backToInactive(); setNav9("active") }}>
-                    <span className="material-icons-sharp">
-                        add
-                    </span>
-                    <h3>New Login</h3>
-                </a>
-                <a href="#" className="">
-                    <span className="material-icons-sharp">
-                        logout
-                    </span>
-                    <h3>Logout</h3>
-                </a>
-            </div>
-        </aside >
+        <Drawer variant="permanent" open={open}>
+            <DrawerHeader>
+                <IconButton onClick={handleDrawerClose}>
+                    {theme.direction === "rtl" ? (
+                        <ChevronRightIcon />
+                    ) : (
+                        <ChevronLeftIcon />
+                    )}
+                </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <Avatar
+                sx={{
+                    mx: "auto",
+                    width: open ? 88 : 44,
+                    height: open ? 88 : 44,
+                    my: 1,
+                    border: "2px solid grey",
+                    transition: "0.25s",
+                }}
+                alt="Admin"
+                src={user.imageUser}
+            />
+            <Typography
+                align="center"
+                sx={{ fontSize: open ? 17 : 0, transition: "0.25s" }}
+            >
+                {user.firstName}
+            </Typography>
+            <Typography
+                align="center"
+                sx={{
+                    fontSize: open ? 15 : 0,
+                    transition: "0.25s",
+                    color: theme.palette.info.main,
+                }}
+            >
+                Admin
+            </Typography>
+
+            <Divider />
+
+            <List>
+                {Array1.map((item) => (
+                    <ListItem key={item.path} disablePadding sx={{ display: "block" }}>
+                        <Tooltip title={open ? null : item.text} placement="left">
+                            <ListItemButton
+                                onClick={() => {
+                                    navigate(item.path);
+                                }}
+                                sx={{
+                                    minHeight: 48,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
+                                    bgcolor:
+                                        location.pathname === item.path
+                                            ? theme.palette.mode === "dark"
+                                                ? grey[800]
+                                                : grey[300]
+                                            : null,
+                                }}
+                            >
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={item.text}
+                                    sx={{ opacity: open ? 1 : 0 }}
+                                />
+                            </ListItemButton>
+                        </Tooltip>
+                    </ListItem>
+                ))}
+            </List>
+
+            <Divider />
+
+            <List>
+                {Array2.map((item) => (
+                    <ListItem key={item.path} disablePadding sx={{ display: "block" }}>
+                        <Tooltip title={open ? null : item.text} placement="left">
+                            <ListItemButton
+                                onClick={() => {
+                                    navigate(item.path);
+                                }}
+                                sx={{
+                                    minHeight: 48,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
+                                    bgcolor:
+                                        location.pathname === item.path
+                                            ? theme.palette.mode === "dark"
+                                                ? grey[800]
+                                                : grey[300]
+                                            : null,
+                                }}
+                            >
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={item.text}
+                                    sx={{ opacity: open ? 1 : 0 }}
+                                />
+                            </ListItemButton>
+                        </Tooltip>
+                    </ListItem>
+                ))}
+            </List>
+
+            <Divider />
+
+            <List>
+                {Array3.map((item) => (
+                    <ListItem key={item.path} disablePadding sx={{ display: "block" }}>
+                        <Tooltip title={open ? null : item.text} placement="left">
+                            <ListItemButton
+                                onClick={() => {
+                                    navigate(item.path);
+                                }}
+                                sx={{
+                                    minHeight: 48,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
+                                    bgcolor:
+                                        location.pathname === item.path
+                                            ? theme.palette.mode === "dark"
+                                                ? grey[800]
+                                                : grey[300]
+                                            : null,
+                                }}
+                            >
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={item.text}
+                                    sx={{ opacity: open ? 1 : 0 }}
+                                />
+                            </ListItemButton>
+                        </Tooltip>
+                    </ListItem>
+                ))}
+            </List>
+        </Drawer>
     );
-}
-export default Sidebar;
+};
+
+export default SideBar;

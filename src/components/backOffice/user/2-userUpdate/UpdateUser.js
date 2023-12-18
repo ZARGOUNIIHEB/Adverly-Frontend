@@ -20,7 +20,7 @@ import { updateUser } from "../../../../api/UsersApi";
 import { fetchaccount } from "../../../../api/UsersApi";
 import { setUser } from "../../../../redux/UserSlice";
 import HomePage from "../../../frontOffice/HomePage";
-import HeaderUser from '../../../backOffice/user/1-headerUser/HeaderUser';
+import HeaderUser from '../1-headerUser/HeaderUser';
 import Footer from '../../../frontOffice/5-footer/Footer';
 
 const VisuallyHiddenInput = styled('input')({
@@ -59,6 +59,7 @@ const UpdateUser = () => {
 
     console.log("This is user from profil :", user);
 
+    const [switchOnOff, setSwitchOnOff] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [role, setRole] = useState('');
@@ -92,6 +93,7 @@ const UpdateUser = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("imageUser", imageUser);
+        console.log("formData:", formData);
         const result = await axios.post(
             "http://localhost:5004/upload-image",
             formData,
@@ -99,7 +101,8 @@ const UpdateUser = () => {
                 headers: { "Content-Type": "multipart/form-data" },
             }
         );
-        setImageUser(`./images/${result.data}`);
+        setImageUser(`/images/${result.data}`);
+        setSwitchOnOff(false);
     };
 
     const handleAdd = async (id, value) => {
@@ -137,16 +140,12 @@ const UpdateUser = () => {
         setOpen(true);
     };
 
-
-
     return (
         <>
             {token ?
                 (<div>
-                    <HeaderUser user={user} />
                     <Box sx={{ marginTop: 15 }}>
-                        <Box
-                            onSubmit={handleSubmit(onSubmit)}
+                        <Box onSubmit={handleSubmit(onSubmit)}
                             component="form"
                             sx={{
                                 display: "flex",
@@ -154,9 +153,9 @@ const UpdateUser = () => {
                                 gap: 3,
                             }}
                             noValidate
-                            autoComplete="off"
-                        >
+                            autoComplete="off">
                             <Stack sx={{ gap: 2 }} direction={"row"}>
+
                                 <TextField
                                     error={Boolean(errors.firstName)}
                                     helperText={
@@ -169,8 +168,7 @@ const UpdateUser = () => {
                                     label="First Name"
                                     variant="filled"
                                     value={firstName}
-                                    onChange={(e) => { setFirstName(e.target.value) }}
-                                />
+                                    onChange={(e) => { setFirstName(e.target.value) }} />
 
                                 <TextField
                                     error={Boolean(errors.lastName)}
@@ -184,10 +182,8 @@ const UpdateUser = () => {
                                     label="Last Name"
                                     variant="filled"
                                     value={lastName}
-                                    onChange={(e) => { setLastName(e.target.value) }}
-                                />
+                                    onChange={(e) => { setLastName(e.target.value) }} />
                             </Stack>
-
                             <TextField
                                 error={Boolean(errors.email)}
                                 helperText={
@@ -198,10 +194,7 @@ const UpdateUser = () => {
                                 label="Email"
                                 variant="filled"
                                 value={email}
-                                onChange={(e) => { setEmail(e.target.value) }}
-                            />
-
-
+                                onChange={(e) => { setEmail(e.target.value) }} />
                             <TextField
                                 error={Boolean(errors.password)}
                                 helperText={
@@ -215,9 +208,7 @@ const UpdateUser = () => {
                                 variant="filled"
                                 type="password"
                                 value={password}
-                                onChange={(e) => { setPassword(e.target.value) }}
-                            />
-
+                                onChange={(e) => { setPassword(e.target.value) }} />
                             <TextField
                                 error={Boolean(errors.phone)}
                                 helperText={
@@ -230,17 +221,17 @@ const UpdateUser = () => {
                                 label="Phone Number"
                                 variant="filled"
                                 value={phone}
-                                onChange={(e) => { setPhone(e.target.value) }}
-                            />
+                                onChange={(e) => { setPhone(e.target.value) }} />
                             {/* Image */}
                             <Stack sx={{ gap: 2 }} direction={"row"}>
-
                                 <TextField label="Picture" variant="filled"
                                     sx={{ flex: 1, input: { color: "var(--subtitle)" }, label: { color: "var(--subtitle)" } }}
                                     value={imageUser}
-                                    onChange={(e) => { setImageUser(e.target.value) }}
-                                />
-                                <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+                                    onChange={(e) => { setImageUser(e.target.value) }} />
+                                <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}
+                                    onClick={() => setSwitchOnOff(true)}
+                                    disabled={switchOnOff}
+                                >
                                     Upload Picture
                                     <VisuallyHiddenInput type="file" onChange={onInputChange} />
                                 </Button>
@@ -249,10 +240,9 @@ const UpdateUser = () => {
                                     sx={{ textTransform: "capitalize" }}
                                     variant="contained"
                                     onClick={submitImageUser}
-                                    inabled>
+                                    disabled={!switchOnOff}>
                                     Update Picture
                                 </Button>
-
                             </Stack>
                             {/* Image */}
 
@@ -261,7 +251,7 @@ const UpdateUser = () => {
                                 value={age}
                                 onChange={(e) => { setAge(e.target.value) }}
                             />
-                            <Box sx={{ minWidth: 120 }}>
+                            {/* <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
                                     <InputLabel
                                         variant="standard" htmlFor="uncontrolled-native"
@@ -271,46 +261,26 @@ const UpdateUser = () => {
                                     <NativeSelect
                                         sx={{ color: "var(--subtitle)" }}
                                         defaultValue={role}
-                                        onChange={(e) => { setRole(e.target.value) }}>
+                                        onChange={(e) => { setRole(e.target.value) }}
+                                        disable>
                                         {data.map((option) => (
                                             <option>{option.value}</option>
                                         ))}
                                     </NativeSelect>
                                 </FormControl>
-                            </Box>
-
-                            {/* <TextField
-                                variant="filled"
-                                id="outlined-select-currency"
-                                select
-                                label="Role"
-                                defaultValue="User"
-                                sx={{ input: { color: "var(--subtitle)" }, label: { color: "var(--subtitle)" } }}
-                                value={role}
-                                onChange={(e) => { setRole(e.target.value) }}>
-                                {data.map((option) => (
-                                    <MenuItem key={option.value}
-                                        value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField> */}
-
+                            </Box> */}
                             <Box sx={{ textAlign: "right" }}>
                                 <Button
                                     type="submit"
                                     sx={{ textTransform: "capitalize" }}
-                                    variant="contained"
-                                >
+                                    variant="contained">
                                     Update User
                                 </Button>
-
                                 <Snackbar
                                     anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
                                     open={open}
                                     autoHideDuration={3000}
-                                    onClose={handleClose}
-                                >
+                                    onClose={handleClose}>
                                     <Alert onClose={handleClose} severity="info" sx={{ width: "100%" }}>
                                         Account updated successfully
                                     </Alert>
@@ -320,8 +290,6 @@ const UpdateUser = () => {
                         </Box>
 
                     </Box>
-                    <div className='divider' />
-                    <Footer />
                 </div >) : (<HomePage />)
             }
         </>);

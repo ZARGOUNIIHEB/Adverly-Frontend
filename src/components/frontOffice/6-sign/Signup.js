@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { postUser } from '../../../api/UsersApi';
 // Material UI Imports
 import {
     TextField, InputAdornment, FormControl, InputLabel, IconButton, Button, Input, Checkbox,
@@ -17,7 +17,7 @@ import LoginIcon from "@mui/icons-material/Login";
 const isEmail = (email) =>
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
-export default function Signup({ handleAdd }) {
+export default function Signup() {
     const [showPassword, setShowPassword] = React.useState(false);
 
     //Inputs
@@ -79,6 +79,11 @@ export default function Signup({ handleAdd }) {
 
         setPasswordError(false);
     };
+
+    const handleAdd = async (value) => {
+        console.log("add values:", value);
+        await postUser(value);
+    }
 
     //handle Submittion
     const handleSubmit = () => {

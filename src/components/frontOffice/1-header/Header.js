@@ -47,74 +47,31 @@ const Header = () => {
 
     return (
         <header className="flex">
-            {token ? (<div className="session-form flex">
-                <div className="icon-session">
-                    {user.imageUser ? (
-                        <img className="img-session" src={user.imageUser} alt='Original' />
-                    ) : (
-
-                        <img className="img-session" src="images/profil.jpg" alt='default' />
-                    )}
-
-                </div>
-                {user.firstName}
-            </div>) : (<></>)
-            }
-            <button className="menu icon-menu flex" onClick={() => setShowModal(true)} />
-            <div />
             <nav>
                 <ul className="flex">
-                    {token ? (
-                        <>
-                            <li>
-                                <Link to="/user">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/profile">Profile</Link>
-                            </li>
-                            <li>
-                                <a href="">Nav 3</a>
-                            </li>
-                            <li>
-                                <Link to="/testing">Testing</Link>
-                            </li>
-                            <li>
-                                <Link to="/advert">
-                                    <button className="mode flex"><NoteAddOutlinedIcon></NoteAddOutlinedIcon></button>
-                                </Link>
-                            </li>
-                            <li>
-                                <button className="mode flex"
-                                    onClick={() => logout()}><LogoutIcon style={{ color: "red" }}></LogoutIcon></button>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <a href="">Nav 2</a>
-                            </li>
-                            <li>
-                                <a href="">Nav 3</a>
-                            </li>
-                            <li>
-                                <a href="">Nav 4</a>
-                            </li>
-                            <li>
-                                <Link to="">
-                                    <button className="mode flex"><NoteAddOutlinedIcon></NoteAddOutlinedIcon></button>
-                                </Link>
-                            </li>
-                            <li>
-                                <button className="mode flex"
-                                    onClick={() => setShowLoginForm(true)}><LoginIcon style={{ color: "green" }}></LoginIcon></button>
-                            </li>
-                        </>
-                    )}
-
-
+                    <>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <a href="/dashboardadmin">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="">Nav 3</a>
+                        </li>
+                        <li>
+                            <a href="">Nav 4</a>
+                        </li>
+                        <li>
+                            <Link to="">
+                                <button className="mode flex"><NoteAddOutlinedIcon></NoteAddOutlinedIcon></button>
+                            </Link>
+                        </li>
+                        <li>
+                            <button className="mode flex"
+                                onClick={() => setShowLoginForm(true)}><LoginIcon style={{ color: "green" }}></LoginIcon></button>
+                        </li>
+                    </>
                 </ul>
             </nav>
             <button onClick={() => {

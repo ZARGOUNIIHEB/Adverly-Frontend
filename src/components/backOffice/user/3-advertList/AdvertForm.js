@@ -14,14 +14,14 @@ import UserAdvertsDisplay from './UserAdvertsDisplay';
 import UserAdvertUpdate from './UserAdvertUpdate';
 
 const AdvertForm = () => {
-
+    const [hide, setHide] = useState(true);
     const user = useSelector(state => state.userElement);
     const dispatch = useDispatch();
-    // const advertRedux = useSelector(state => state.advertElement);
+    const advertRedux = useSelector(state => state.advertElement);
     // console.log("Advert Redux: ", advertRedux);
     const [adverts, setAdverts] = useState([]);
     const [clickCard, setClickCard] = useState(adverts[0] ? adverts[0] : {});
-    console.log("adverts[0]", adverts[0]);
+
     const getAuth = async () => {
         const data = await fetchaccount();
         dispatch(setUser(data));
@@ -42,18 +42,12 @@ const AdvertForm = () => {
     useEffect(() => {
         getUserAdvert(user.email);
     }, [user]);
-
-
-
     return (
         <>
-            <HeaderUser user={user} />
             <div className='divider' />
-            <UserAdvertsDisplay adverts={adverts} setClickCard={setClickCard} />
+            <UserAdvertsDisplay adverts={adverts} setClickCard={setClickCard} setHide={setHide} />
             <div className='divider' />
-            <UserAdvertUpdate clickCard={clickCard} />
-            <div className='divider' />
-            <Footer />
+            <UserAdvertUpdate clickCard={clickCard} user={user} hide={hide} adverts={adverts} setAdverts={setAdverts} />
         </>
     );
 }

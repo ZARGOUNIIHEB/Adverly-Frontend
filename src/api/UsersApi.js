@@ -14,3 +14,9 @@ export const fetchaccount = async () => {
     const { data } = await axios.get('http://localhost:5004/user/myaccount', { headers: { Authorization: token } })
     return data;
 }
+
+export const fetchAllUsers = async () => {
+    const { data } = await axios.get('http://localhost:5004/user/allUsers');
+    return data;
+
+}
