@@ -21,8 +21,8 @@ const HeaderUser = ({ user }) => {
 
 
 
-    console.log("User from HeaderUser:", user);
-    console.log("Image user :", user.imageUser);
+    // console.log("User from HeaderUser:", user);
+    // console.log("Image user :", user.imageUser);
 
     const [theme, setTheme] = useState(localStorage.getItem("currentMode") ?? "dark");
     const [showModal, setShowModal] = useState(false);
@@ -66,10 +66,9 @@ const HeaderUser = ({ user }) => {
 
                 </div>
                 {user.firstName}
-            </div>) : (<></>)
-            }
+            </div>) : (<></>)}
             <button className="menu icon-menu flex" onClick={() => setShowModal(true)} />
-            <div />
+
             <nav>
                 <ul className="flex">
                     {token ? (

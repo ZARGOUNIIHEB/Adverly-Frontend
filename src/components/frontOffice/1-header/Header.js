@@ -47,6 +47,7 @@ const Header = () => {
 
     return (
         <header className="flex">
+            <button className="menu icon-menu flex" onClick={() => setShowModal(true)} />
             <nav>
                 <ul className="flex">
                     <>
@@ -110,20 +111,7 @@ const Header = () => {
             {
                 showLoginForm && (
                     <div className="loginForm">
-
-                        {/* <ul className="loginModal">
-                        <li>
-                            <button className="icon-close" onClick={() => setShowLoginForm(false)} />
-                        </li>
-                        <li><a href="">Item 1</a></li>
-                        <li><a href="">Item 2</a></li>
-                        <li><a href="">Item 3</a></li>
-                        <li><a href="">Item 4</a></li>
-                        <li><a href="">Item 5</a></li>
-                    </ul> */}
-
                         <Sign setShowLoginForm={setShowLoginForm} />
-
                     </div>)
             }
 

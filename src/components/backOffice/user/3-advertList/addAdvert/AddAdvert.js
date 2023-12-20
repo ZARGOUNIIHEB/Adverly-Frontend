@@ -100,26 +100,16 @@ const AddAdvert = ({ user, handleAdd }) => {
         setOpen(false);
     };
 
+    const onSubmit = () => {
+        handleAdd({ title, type, price, city, delegation, category, subCategory, productCondition, imageAdvert, userAdvert, advertState });
+        handleClick();
+        setTitle('');
+        setPrice('');
+    }
     const handleClick = () => {
         setOpen(true);
     };
     /////////////////// Form End ///////////////////////////////////
-
-
-    const onSubmit = () => {
-        console.log('title:', title);
-        console.log('type:', type);
-        console.log('price:', price);
-        console.log('city:', city);
-        console.log('delegation:', delegation);
-        console.log('category:', category);
-        console.log('subCategory:', subCategory);
-        console.log('productCondition:', productCondition);
-        console.log('imageAdvert:', imageAdvert);
-        console.log('userAdvert:', userAdvert);
-        console.log("advertState:", advertState);
-        handleAdd({ title, type, price, city, delegation, category, subCategory, productCondition, imageAdvert, userAdvert, advertState });
-    }
 
     return (<section className="informationUpdate">
         <Box sx={{ marginTop: 15 }}>
@@ -288,12 +278,23 @@ const AddAdvert = ({ user, handleAdd }) => {
                     </Stack>
                     {/* Image */}
                 </Box>
-                <Button
-                    type="submit"
-                    sx={{ textTransform: "capitalize" }}
-                    variant="contained">
-                    Add Advert
-                </Button>
+                <Box sx={{ textAlign: "right" }}>
+                    <Button
+                        type="submit"
+                        sx={{ textTransform: "capitalize" }}
+                        variant="contained">
+                        Add Advert
+                    </Button>
+                    <Snackbar
+                        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                        open={open}
+                        autoHideDuration={3000}
+                        onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="info" sx={{ width: "100%" }}>
+                            Advert added successfully
+                        </Alert>
+                    </Snackbar>
+                </Box>
             </Box>
 
 

@@ -15,8 +15,10 @@ import UserAdvertUpdate from './UserAdvertUpdate';
 
 const AdvertForm = () => {
     const [hide, setHide] = useState(true);
+    // @ts-ignore
     const user = useSelector(state => state.userElement);
     const dispatch = useDispatch();
+    // @ts-ignore
     const advertRedux = useSelector(state => state.advertElement);
     // console.log("Advert Redux: ", advertRedux);
     const [adverts, setAdverts] = useState([]);
@@ -45,7 +47,7 @@ const AdvertForm = () => {
     return (
         <>
             <div className='divider' />
-            <UserAdvertsDisplay adverts={adverts} setClickCard={setClickCard} setHide={setHide} />
+            <UserAdvertsDisplay setClickCard={setClickCard} setHide={setHide} adverts={adverts} />
             <div className='divider' />
             <UserAdvertUpdate clickCard={clickCard} user={user} hide={hide} adverts={adverts} setAdverts={setAdverts} />
         </>

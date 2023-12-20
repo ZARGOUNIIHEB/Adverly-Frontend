@@ -12,7 +12,9 @@ const advertSlice = createSlice({
         category: "advert category",
         subCategory: "advert subcategory",
         productCondition: "advert productCondition",
-        imageAdvert: "advert imageAdvert"
+        imageAdvert: [
+            { path: "" }
+        ]
 
     }
     ],

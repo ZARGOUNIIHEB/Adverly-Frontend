@@ -85,13 +85,46 @@ section.userAdverts.flex {
 
 /* Under Review Card */
 .card_Under_Review {
+    filter: blur(2px);
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.16), 1px 1px 1px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(252, 93, 130, 0.3);
     border-radius: 5px;
     transition: 0.3s;
     background-image: linear-gradient(rgba(255, 255, 255, 0.05),
-            rgba(255, 255, 255, 0.05));
+            rgba(250, 6, 6, 0.05));
+    z-index: 14;
+
+    animation: bg-spin 3s linear infinite;
+
 }
+
+
+.boxGradient {
+    --border-size: 3px;
+    --border-angle: 0turn;
+    background-image: conic-gradient(from var(--border-angle), #213, #112 50%, #213), conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
+    background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)), cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    animation: bg-spin 3s linear infinite;
+}
+
+@keyframes bg-spin {
+    to {
+        --border-angle: 1turn;
+    }
+}
+
+.boxGradient:hover {
+    animation-play-state: paused;
+}
+
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+}
+
 
 .light .card_Under_Review,
 .light .card_Under_Review:hover {

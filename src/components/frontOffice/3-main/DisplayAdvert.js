@@ -34,7 +34,6 @@ const DisplayAdvert = () => {
         }
     }, [advert]);
 
-    const baseUrl = '\\';
 
     const settings = {
         customPaging: function (i) {
@@ -46,7 +45,7 @@ const DisplayAdvert = () => {
                             height: "50px",
                             objectFit: "cover",
                             borderRadius: "10px"
-                        }} src={baseUrl + imageArray[i].path} />
+                        }} src={imageArray[i].path} />
                     </a>
                 </div>
             );
@@ -62,16 +61,34 @@ const DisplayAdvert = () => {
     return (<>
         <Header />
         <div style={{ justifyContent: "space-between" }} className="flex">
-            <section className="InformationAdvert" style={{ border: "1px solid green" }}>
-                test test
+            <section className="InformationAdvert">
+                <div className="advert-details-container">
+                    <div className="advert-detail-row">
+                        <output className="advert-detail-label">Title:</output>
+                        <output className="advert-detail-value">{advert.title}</output>
+                    </div>
+                    <div className="advert-detail-row">
+                        <output className="advert-detail-label">Type:</output>
+                        <output className="advert-detail-value">{advert.type}</output>
+                    </div>
+                    <div className="advert-detail-row">
+                        <output className="advert-detail-label">Description:</output>
+                        <output className="advert-detail-value"
+                            style={{ textAlign: "justify" }}
+                        >{advert.description}</output>
+                    </div>
+                    <div className="advert-detail-row">
+                        <output style={{ textAlign: "right", width: "90%" }}>Price:</output>
+                        <output style={{ textAlign: "right" }}>{advert.price}</output>
+                    </div>
+                </div>
             </section>
             <section className="dispalyAdvet">
                 <div className="displayTop" style={{ margin: "30px", width: "700px" }}>
-                    <h2>{advert.title}</h2>
                     <Slider {...settings}>
                         {imageArray.map((el) =>
-                            <div key={el._id} >
-                                <img style={{ width: "100%", height: "30rem" }} src={baseUrl + el.path}></img>
+                            <div key={el._id}>
+                                <img style={{ width: "100%", height: "30rem", borderRadius: "20px" }} src={el.path}></img>
                             </div>)}
                     </Slider >
                 </div >

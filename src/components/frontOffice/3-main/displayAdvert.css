@@ -1,5 +1,5 @@
 .dispalyAdvet {
-    border: 1px solid green;
+
     margin-top: 5rem;
     margin-bottom: 5rem;
     width: 47.5rem;
@@ -7,7 +7,7 @@
 
 .slick-thumb {
     bottom: -65px;
-    border: 1px solid green;
+
 }
 
 .slick-thumb li {
@@ -18,4 +18,34 @@
 
 .slick-thumb li.slick-active {
     filter: grayscale(0);
+}
+
+.InformationAdvert {
+    padding: 35px;
+}
+
+.advert-details-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+}
+
+.advert-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.advert-detail-label {
+    color: var(--title);
+    font-weight: bold;
+    margin-right: 8px;
+    width: 30%;
+}
+
+.advert-detail-value {
+    color: var(--subtitle);
+    flex-grow: 1;
+    width: 70%;
 }
