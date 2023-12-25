@@ -69,8 +69,7 @@ const Main = () => {
                                             <div className="icon-link"></div>
                                             {/* <div className="icon-github"></div> */}
                                         </div>
-                                        <Link to={`/displayadvert/${item._id}`}>
-                                            {/* <a className="link flex" href=""> */}
+                                        <Link className="link" to={`/displayadvert/${item._id}`}>
                                             more
                                             <span
                                                 style={{ alignSelf: "end" }}
@@ -84,7 +83,7 @@ const Main = () => {
                         );
                     })}
                 </AnimatePresence>
-            </section>
+            </section >
         </main >
     );
 }

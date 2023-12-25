@@ -1,6 +1,7 @@
 //----------------- Styling Zone --------------------//
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import './components/chat/index.css';
 import './App.css';
 
 //-----------------Libraries Zone -------------------//
@@ -13,6 +14,8 @@ import { fetchAllAdverts } from './api/AdvertsApi';
 //----------------- Components Zone -----------------//
 import HomePage from './components/frontOffice/HomePage';
 import DisplayAdvert from './components/frontOffice/3-main/DisplayAdvert';
+import SupportEngine from './components/chat/SupportEngine/index';
+import SupportAdmin from './components/chat/SupportAdmin/index';
 import UserZone from './components/backOffice/user/UserZone';
 import Core from './components/backOffice/user/4-userCore/Core';
 import UserUpdate from './components/backOffice/user/2-userUpdate/UpdateUser';
@@ -67,6 +70,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/displayadvert/:id" element={<DisplayAdvert />} />
+        <Route path="/supportengine" element={<SupportEngine />} />
+        <Route path="/support" element={<SupportAdmin />} />
 
         <Route path="/userzone" element={<UserZone />} >
           <Route index element={<Core />} />

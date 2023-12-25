@@ -11,6 +11,7 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
+import Badge from '@mui/material/Badge';
 
 import { useEffect } from 'react';
 import { useNavigate } from "react-router";
@@ -75,6 +76,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         [theme.breakpoints.up("md")]: {
             width: "20ch",
         },
+    },
+}));
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+        right: 5,
+        top: 6,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
     },
 }));
 
@@ -160,10 +170,11 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
                             <DarkModeOutlinedIcon />
                         </IconButton>
                     )}
-
-                    <IconButton color="inherit">
-                        <NotificationsOutlinedIcon />
-                    </IconButton>
+                    <StyledBadge badgeContent={33} color="secondary">
+                        <IconButton color="inherit" >
+                            <NotificationsOutlinedIcon />
+                        </IconButton>
+                    </StyledBadge>
 
                     <IconButton color="inherit">
                         <SettingsOutlinedIcon />

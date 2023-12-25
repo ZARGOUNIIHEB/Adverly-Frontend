@@ -66,8 +66,9 @@ const UserAdvertUpdate = ({ clickCard, user, hide, adverts, setAdverts }) => {
                                     >{clickCard.description}</output>
                                 </div>
                                 <div className="advert-detail-row">
-                                    <output style={{ textAlign: "right", width: "90%" }}>Price:</output>
-                                    <output style={{ textAlign: "right" }}>{clickCard.price}</output>
+                                    <output style={{ textAlign: "right", width: "90%" }}>Price :</output>
+                                    <output style={{ textAlign: "right", paddingLeft: "5px" }}>{clickCard.price}</output>
+                                    <output style={{ textAlign: "right", paddingLeft: "5px" }}>DT</output>
                                 </div>
                             </div>
                         </section>

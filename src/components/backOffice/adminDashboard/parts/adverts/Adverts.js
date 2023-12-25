@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
+import { Alert, Snackbar } from "@mui/material";
 import Header from "../../Header";
 import UnderConstruction from '../../../../underConstruction/UnderConstruction';
 
@@ -18,6 +19,8 @@ const Adverts = () => {
     const [rows, setRows] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [advertState, setAdvertState] = useState('');
+    const [open, setOpen] = useState(false);
 
     const getAdverts = async () => {
         const data = await fetchAllAdverts();
@@ -35,7 +38,7 @@ const Adverts = () => {
     };
     useEffect(() => {
         getAdverts();
-    }, []);
+    }, [advertState]);
 
     const settings = {
         dots: true,
@@ -52,8 +55,12 @@ const Adverts = () => {
         let newApproval = "";
         if (approval === "Approved") {
             newApproval = "Under review";
+            setAdvertState("Under review");
+            handleClick();
         } else {
             newApproval = "Approved";
+            setAdvertState("Approved");
+            handleClick();
         }
         try {
             const res = await updateAdverts(id, { advertState: newApproval });
@@ -61,6 +68,17 @@ const Adverts = () => {
             console.log(err);
         }
     }
+
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setOpen(false);
+    };
+    const handleClick = () => {
+        setOpen(true);
+    };
     return (
         <>
             <Box>
@@ -73,7 +91,7 @@ const Adverts = () => {
                         }}
                         rows={rows}
                         // @ts-ignore
-                        columns={columns(handleShowModal)}
+                        columns={columns(handleShowModal, setAdvertState)}
                     />
                 </Box>
             </Box>
@@ -101,8 +119,6 @@ const Adverts = () => {
                                             </Slider >
                                         </div >
                                     </section >
-
-
                                     <section className="InformationAdvert">
                                         <div className="advert-details-container">
                                             <div className="advert-detail-row">
@@ -120,12 +136,22 @@ const Adverts = () => {
                                                 >{selectedRow.description}</output>
                                             </div>
                                             <div className="advert-detail-row">
-                                                <output style={{ textAlign: "right", width: "90%" }}>Price:</output>
-                                                <output style={{ textAlign: "right" }}>{selectedRow.price}</output>
+                                                <output style={{ textAlign: "right", width: "90%" }}>Price :</output>
+                                                <output style={{ textAlign: "right", paddingLeft: "5px" }}>{selectedRow.price}</output>
+                                                <output style={{ textAlign: "right", paddingLeft: "5px" }}>DT</output>
                                             </div>
-                                            <button className="submit" onClick={() => approveAdvert(selectedRow._id, selectedRow.advertState)}>
-                                                {selectedRow.advertState === "Approved" ? "Disapprove" : "Approve"}</button>
+                                            <button className="submit" onClick={() => approveAdvert(selectedRow._id, advertState)}>
+                                                {advertState === "Approved" ? "Disapprove" : "Approve"}</button>
                                         </div>
+                                        <Snackbar
+                                            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                                            open={open}
+                                            autoHideDuration={3000}
+                                            onClose={handleClose}>
+                                            <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+                                                {`Advert is ${advertState} !`}
+                                            </Alert>
+                                        </Snackbar>
                                     </section>
                                 </div>
                             </section>
@@ -140,7 +166,7 @@ const Adverts = () => {
 export default Adverts;
 
 
-export const columns = (handleShowModal) => [
+export const columns = (handleShowModal, setAdvertState) => [
     { field: "id", headerName: "ID", width: 33 },
     { field: "registrarId", headerName: "Registrar ID" },
     {
@@ -189,7 +215,7 @@ export const columns = (handleShowModal) => [
         renderCell: (params) => (
             <Stack spacing={1} sx={{ width: 1, py: 1 }}>
                 <Button variant="outlined" size="small" startIcon={<EditIcon />}
-                    onClick={() => handleShowModal(params.row)}>
+                    onClick={() => { handleShowModal(params.row); setAdvertState(params.row.advertState) }}>
                     Edit
                 </Button>
 

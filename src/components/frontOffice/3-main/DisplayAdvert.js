@@ -1,5 +1,6 @@
 import Header from "../1-header/Header";
 import Footer from "../5-footer/Footer";
+import Contact from "../4-contact/Contact";
 import { getUniqueAdvert } from "../../../api/AdvertsApi";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
@@ -16,7 +17,7 @@ const DisplayAdvert = () => {
 
     const getAdvert = async (id) => {
         const data = await getUniqueAdvert(id);
-        console.log('Data from dataBase', data.advert);
+        // console.log('Data from dataBase', data.advert);
         setAdvert(data.advert);
     }
 
@@ -28,7 +29,7 @@ const DisplayAdvert = () => {
         // @ts-ignore
         if (advert && advert.imageAdvert && advert.imageAdvert.length > 0) {
             // @ts-ignore
-            console.log("Advert Image Path:", advert.imageAdvert);
+            // console.log("Advert Image Path:", advert.imageAdvert);
             // @ts-ignore
             setImageArray(advert.imageAdvert);
         }
@@ -65,21 +66,29 @@ const DisplayAdvert = () => {
                 <div className="advert-details-container">
                     <div className="advert-detail-row">
                         <output className="advert-detail-label">Title:</output>
-                        <output className="advert-detail-value">{advert.title}</output>
+                        <output className="advert-detail-value">{advert.
+                            // @ts-ignore
+                            title}</output>
                     </div>
                     <div className="advert-detail-row">
                         <output className="advert-detail-label">Type:</output>
-                        <output className="advert-detail-value">{advert.type}</output>
+                        <output className="advert-detail-value">{advert.
+                            // @ts-ignore
+                            type}</output>
                     </div>
                     <div className="advert-detail-row">
                         <output className="advert-detail-label">Description:</output>
                         <output className="advert-detail-value"
                             style={{ textAlign: "justify" }}
+                        // @ts-ignore
                         >{advert.description}</output>
                     </div>
                     <div className="advert-detail-row">
-                        <output style={{ textAlign: "right", width: "90%" }}>Price:</output>
-                        <output style={{ textAlign: "right" }}>{advert.price}</output>
+                        <output style={{ textAlign: "right", width: "90%" }}>Price :</output>
+                        <output style={{ textAlign: "right", paddingLeft: "5px" }}>{advert.
+                            // @ts-ignore
+                            price}</output>
+                        <output style={{ textAlign: "right", paddingLeft: "5px" }}>DT</output>
                     </div>
                 </div>
             </section>
@@ -95,6 +104,8 @@ const DisplayAdvert = () => {
 
             </section>
         </div >
+        <div className='divider' />
+        <Contact advert={advert} />
         <div className='divider' />
         <Footer />
     </>);
